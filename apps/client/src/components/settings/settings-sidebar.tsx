@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import classes from "./settings.module.css";
-
+import i18n from "@/lang/i18n";
 interface DataItem {
   label: string;
   icon: React.ElementType;
@@ -25,27 +25,27 @@ interface DataGroup {
 
 const groupedData: DataGroup[] = [
   {
-    heading: "Account",
+    heading: i18n.t("Account"),
     items: [
-      { label: "Profile", icon: IconUser, path: "/settings/account/profile" },
+      { label: i18n.t("Profile"), icon: IconUser, path: "/settings/account/profile" },
       {
-        label: "Preferences",
+        label: i18n.t("Preferences"),
         icon: IconBrush,
         path: "/settings/account/preferences",
       },
     ],
   },
   {
-    heading: "Workspace",
+    heading: i18n.t("Workspace"),
     items: [
-      { label: "General", icon: IconSettings, path: "/settings/workspace" },
+      { label: i18n.t("General"), icon: IconSettings, path: "/settings/workspace" },
       {
-        label: "Members",
+        label: i18n.t("Members"),
         icon: IconUsers,
         path: "/settings/members",
       },
-      { label: "Groups", icon: IconUsersGroup, path: "/settings/groups" },
-      { label: "Spaces", icon: IconSpaces, path: "/settings/spaces" },
+      { label: i18n.t("Groups"), icon: IconUsersGroup, path: "/settings/groups" },
+      { label: i18n.t("Spaces"), icon: IconSpaces, path: "/settings/spaces" },
     ],
   },
 ];
@@ -89,7 +89,7 @@ export default function SettingsSidebar() {
         >
           <IconArrowLeft stroke={2} />
         </ActionIcon>
-        <Text fw={500}>Settings</Text>
+        <Text fw={500}>{i18n.t("Settings")}</Text>
       </Group>
 
       <ScrollArea w="100%">{menuItems}</ScrollArea>

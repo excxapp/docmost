@@ -11,7 +11,7 @@ import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
-
+import "./lang/i18n.ts"
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

@@ -16,6 +16,7 @@ import SlashCommand from "@/features/editor/extensions/slash-command";
 import { Collaboration } from "@tiptap/extension-collaboration";
 import { CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
 import { HocuspocusProvider } from "@hocuspocus/provider";
+import { useTranslation } from "react-i18next";
 import {
   Comment,
   Details,
@@ -64,7 +65,7 @@ import clojure from "highlight.js/lib/languages/clojure";
 import fortran from "highlight.js/lib/languages/fortran";
 import haskell from "highlight.js/lib/languages/haskell";
 import scala from "highlight.js/lib/languages/scala";
-
+import i18n from "@/lang/i18n"
 const lowlight = createLowlight(common);
 lowlight.register("mermaid", plaintext);
 lowlight.register("powershell", powershell);
@@ -76,7 +77,7 @@ lowlight.register("clojure", clojure);
 lowlight.register("fortran", fortran);
 lowlight.register("haskell", haskell);
 lowlight.register("scala", scala);
-
+// const { t } = useTranslation();
 export const mainExtensions = [
   StarterKit.configure({
     history: false,
@@ -94,13 +95,13 @@ export const mainExtensions = [
   Placeholder.configure({
     placeholder: ({ node }) => {
       if (node.type.name === "heading") {
-        return `Heading ${node.attrs.level}`;
+        return `${i18n.t("Heading")} ${node.attrs.level}`;
       }
       if (node.type.name === "detailsSummary") {
-        return "Toggle title";
+        return  i18n.t("Toggle title");
       }
       if (node.type.name === "paragraph") {
-        return 'Write anything. Enter "/" for commands';
+        return  i18n.t("Write anything.")+i18n.t("Enter")+' "/" '+i18n.t("for commands");
       }
     },
     includeChildren: true,

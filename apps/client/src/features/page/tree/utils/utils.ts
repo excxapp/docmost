@@ -1,6 +1,5 @@
 import { IPage } from "@/features/page/types/page.types.ts";
 import { SpaceTreeNode } from "@/features/page/tree/types.ts";
-
 function sortPositionKeys(keys: any[]) {
   return keys.sort((a, b) => {
     if (a.position < b.position) return -1;
@@ -8,10 +7,10 @@ function sortPositionKeys(keys: any[]) {
     return 0;
   });
 }
-
+import i18n from "@/lang/i18n";
 export function buildTree(pages: IPage[]): SpaceTreeNode[] {
   const pageMap: Record<string, SpaceTreeNode> = {};
-
+  
   const tree: SpaceTreeNode[] = [];
 
   pages.forEach((page) => {
@@ -42,7 +41,7 @@ export function findBreadcrumbPath(
 ): SpaceTreeNode[] | null {
   for (const node of tree) {
     if (!node.name || node.name.trim() === "") {
-      node.name = "untitled";
+      node.name = i18n.t("untitled");
     }
 
     if (node.id === pageId) {

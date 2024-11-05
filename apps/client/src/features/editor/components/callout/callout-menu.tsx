@@ -5,6 +5,7 @@ import {
 } from "@tiptap/react";
 import React, { useCallback } from "react";
 import { Node as PMNode } from "prosemirror-model";
+import { useTranslation } from "react-i18next";
 import {
   EditorMenuProps,
   ShouldShowProps,
@@ -19,6 +20,8 @@ import {
 import { CalloutType } from "@docmost/editor-ext";
 
 export function CalloutMenu({ editor }: EditorMenuProps) {
+  const { t } = useTranslation();
+  
   const shouldShow = useCallback(
     ({ state }: ShouldShowProps) => {
       if (!state) {
@@ -88,7 +91,7 @@ export function CalloutMenu({ editor }: EditorMenuProps) {
           <ActionIcon
             onClick={() => setCalloutType("success")}
             size="lg"
-            aria-label="Success"
+            aria-label={t("Success")}
             variant={
               editor.isActive("callout", { type: "success" })
                 ? "light"

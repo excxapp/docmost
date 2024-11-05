@@ -6,6 +6,7 @@ import { IForgotPassword } from "@/features/auth/types/auth.types";
 import { Box, Button, Container, Text, TextInput, Title } from "@mantine/core";
 import classes from "./auth.module.css";
 import { useRedirectIfAuthenticated } from "@/features/auth/hooks/use-redirect-if-authenticated.ts";
+import i18n from "@/lang/i18n";
 
 const formSchema = z.object({
   email: z
@@ -36,7 +37,7 @@ export function ForgotPasswordForm() {
     <Container size={420} my={40} className={classes.container}>
       <Box p="xl" mt={200}>
         <Title order={2} ta="center" fw={500} mb="md">
-          Forgot password
+          {i18n.t("Forgot password")}
         </Title>
 
         <form onSubmit={form.onSubmit(onSubmit)}>
@@ -44,7 +45,7 @@ export function ForgotPasswordForm() {
             <TextInput
               id="email"
               type="email"
-              label="Email"
+              label={i18n.t("Email")}
               placeholder="email@example.com"
               variant="filled"
               {...form.getInputProps("email")}
@@ -60,7 +61,7 @@ export function ForgotPasswordForm() {
 
           {!isTokenSent && (
             <Button type="submit" fullWidth mt="xl" loading={isLoading}>
-              Send reset link
+              {i18n.t("Send reset link")}
             </Button>
           )}
         </form>

@@ -1,20 +1,20 @@
 import { IRoleData, UserRole } from "@/lib/types.ts";
-
+import i18n from "@/lang/i18n";
 export const userRoleData: IRoleData[] = [
   {
-    label: "Owner",
+    label: i18n.t("Owner"),
     value: UserRole.OWNER,
-    description: "Can manage workspace",
+    description: i18n.t("Can manage workspace"),
   },
   {
-    label: "Admin",
+    label: i18n.t("Admin"),
     value: UserRole.ADMIN,
-    description: "Can manage workspace but cannot delete it",
+    description: i18n.t("Can manage workspace but cannot delete it."),
   },
   {
-    label: "Member",
+    label: i18n.t("Member"),
     value: UserRole.MEMBER,
-    description: "Can become members of groups and spaces in workspace.",
+    description: i18n.t("Can become members of groups and spaces in workspace."),
   },
 ];
 

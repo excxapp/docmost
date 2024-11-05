@@ -13,15 +13,17 @@ import { currentUserAtom } from "@/features/user/atoms/current-user-atom.ts";
 import { useDisclosure } from "@mantine/hooks";
 import * as React from "react";
 import { useForm, zodResolver } from "@mantine/form";
-
+import { useTranslation } from "react-i18next";
+import i18n from "@/lang/i18n";
 export default function ChangeEmail() {
+  const { t } = useTranslation();
   const [currentUser] = useAtom(currentUserAtom);
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <Group justify="space-between" wrap="nowrap" gap="xl">
       <div>
-        <Text size="md">Email</Text>
+        <Text size="md">{t("Email")}</Text>
         <Text size="sm" c="dimmed">
           {currentUser?.user.email}
         </Text>
@@ -35,7 +37,7 @@ export default function ChangeEmail() {
 
       <Modal opened={opened} onClose={close} title="Change email" centered>
         <Text mb="md">
-          To change your email, you have to enter your password and new email.
+          {t("To change your email, you have to enter your password and new email.")}
         </Text>
         <ChangeEmailForm />
       </Modal>
@@ -46,7 +48,7 @@ export default function ChangeEmail() {
 const formSchema = z.object({
   email: z.string({ required_error: "New email is required" }).email(),
   password: z
-    .string({ required_error: "your current password is required" })
+    .string({ required_error: i18n.t("your current password is required") })
     .min(8),
 });
 
@@ -54,7 +56,6 @@ type FormValues = z.infer<typeof formSchema>;
 
 function ChangeEmailForm() {
   const [isLoading, setIsLoading] = useState(false);
-
   const form = useForm<FormValues>({
     validate: zodResolver(formSchema),
     initialValues: {
@@ -71,8 +72,8 @@ function ChangeEmailForm() {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <PasswordInput
-        label="Password"
-        placeholder="Enter your password"
+        label={i18n.t("Password")}
+        placeholder={i18n.t("Enter your password")}
         variant="filled"
         mb="md"
         {...form.getInputProps("password")}
@@ -80,7 +81,7 @@ function ChangeEmailForm() {
 
       <TextInput
         id="email"
-        label="Email"
+        label={i18n.t("Email")}
         description="Enter your new preferred email"
         placeholder="New email"
         variant="filled"
@@ -89,7 +90,7 @@ function ChangeEmailForm() {
       />
 
       <Button type="submit" disabled={isLoading} loading={isLoading}>
-        Change email
+        {i18n.t("Change email")}
       </Button>
     </form>
   );

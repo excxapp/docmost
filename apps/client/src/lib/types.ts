@@ -3,7 +3,6 @@ export interface QueryParams {
   page?: number;
   limit?: number;
 }
-
 export enum UserRole {
   OWNER = "owner",
   ADMIN = "admin",

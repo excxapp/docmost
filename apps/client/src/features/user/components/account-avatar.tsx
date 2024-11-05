@@ -7,13 +7,13 @@ import { FileButton, Tooltip } from "@mantine/core";
 import { uploadAvatar } from "@/features/user/services/user-service.ts";
 
 const userAtom = focusAtom(currentUserAtom, (optic) => optic.prop("user"));
-
+import { useTranslation } from "react-i18next";
 export default function AccountAvatar() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser] = useAtom(currentUserAtom);
   const [, setUser] = useAtom(userAtom);
   const [file, setFile] = useState<File | null>(null);
-
+  const { t } = useTranslation();
   const handleFileChange = async (selectedFile: File) => {
     if (!selectedFile) {
       return;
@@ -36,7 +36,7 @@ export default function AccountAvatar() {
     <>
       <FileButton onChange={handleFileChange} accept="image/png,image/jpeg">
         {(props) => (
-          <Tooltip label="Change photo" position="bottom">
+          <Tooltip label={t("Change photo")} position="bottom">
             <CustomAvatar
               {...props}
               component="button"

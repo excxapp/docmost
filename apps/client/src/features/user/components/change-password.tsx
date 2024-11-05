@@ -6,25 +6,25 @@ import * as React from "react";
 import { useForm, zodResolver } from "@mantine/form";
 import { changePassword } from "@/features/auth/services/auth-service.ts";
 import { notifications } from "@mantine/notifications";
-
+import i18n from "@/lang/i18n";
 export default function ChangePassword() {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <Group justify="space-between" wrap="nowrap" gap="xl">
       <div>
-        <Text size="md">Password</Text>
+        <Text size="md">{i18n.t("Password")}</Text>
         <Text size="sm" c="dimmed">
-          You can change your password here.
+          {i18n.t("You can change your password here.")}
         </Text>
       </div>
 
       <Button onClick={open} variant="default">
-        Change password
+        {i18n.t("Change password")}
       </Button>
 
-      <Modal opened={opened} onClose={close} title="Change password" centered>
-        <Text mb="md">Your password must be a minimum of 8 characters.</Text>
+      <Modal opened={opened} onClose={close} title={i18n.t("Change password")} centered>
+        <Text mb="md">{i18n.t("Your password must be a minimum of 8 characters.")}</Text>
         <ChangePasswordForm onClose={close} />
       </Modal>
     </Group>
@@ -33,9 +33,9 @@ export default function ChangePassword() {
 
 const formSchema = z.object({
   oldPassword: z
-    .string({ required_error: "your current password is required" })
+    .string({ required_error: i18n.t("your current password is required") })
     .min(8),
-  newPassword: z.string({ required_error: "New password is required" }).min(8),
+  newPassword: z.string({ required_error: i18n.t("New password is required") }).min(8),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -78,9 +78,9 @@ function ChangePasswordForm({ onClose }: ChangePasswordFormProps) {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <PasswordInput
-        label="Current password"
+        label={i18n.t("Current password")}
         name="oldPassword"
-        placeholder="Enter your current password"
+        placeholder={i18n.t("Enter your current password")}
         variant="filled"
         mb="md"
         data-autofocus
@@ -88,8 +88,8 @@ function ChangePasswordForm({ onClose }: ChangePasswordFormProps) {
       />
 
       <PasswordInput
-        label="New password"
-        placeholder="Enter your new password"
+        label={i18n.t("New password")}
+        placeholder={i18n.t("Enter your new password")}
         variant="filled"
         mb="md"
         {...form.getInputProps("newPassword")}
@@ -97,7 +97,7 @@ function ChangePasswordForm({ onClose }: ChangePasswordFormProps) {
 
       <Group justify="flex-end" mt="md">
         <Button type="submit" disabled={isLoading} loading={isLoading}>
-          Change password
+          {i18n.t("Change password")}
         </Button>
       </Group>
     </form>

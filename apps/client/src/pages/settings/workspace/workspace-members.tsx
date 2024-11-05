@@ -8,6 +8,7 @@ import WorkspaceInvitesTable from "@/features/workspace/components/members/compo
 import useUserRole from "@/hooks/use-user-role.tsx";
 import {getAppName} from "@/lib/config.ts";
 import {Helmet} from "react-helmet-async";
+import { t } from "i18next";
 
 export default function WorkspaceMembers() {
     const [segmentValue, setSegmentValue] = useState("members");
@@ -34,9 +35,9 @@ export default function WorkspaceMembers() {
     return (
         <>
             <Helmet>
-                <title>Members - {getAppName()}</title>
+                <title>{t("Members")} - {getAppName()}</title>
             </Helmet>
-            <SettingsTitle title="Members"/>
+            <SettingsTitle title={t("Members")} />
 
             {/* <WorkspaceInviteSection /> */}
             {/* <Divider my="lg" /> */}
@@ -46,8 +47,8 @@ export default function WorkspaceMembers() {
                     value={segmentValue}
                     onChange={handleSegmentChange}
                     data={[
-                        {label: "Members", value: "members"},
-                        {label: "Pending", value: "invites"},
+                        {label: t("Members"), value: "members"},
+                        {label: t("Pending"), value: "invites"},
                     ]}
                     withItemsBorders={false}
                 />

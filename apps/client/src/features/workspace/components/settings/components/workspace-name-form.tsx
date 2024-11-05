@@ -9,7 +9,7 @@ import { TextInput, Button } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import useUserRole from "@/hooks/use-user-role.tsx";
-
+import { useTranslation } from "react-i18next";
 const formSchema = z.object({
   name: z.string().min(4).nonempty("Workspace name cannot be blank"),
 });
@@ -25,7 +25,7 @@ export default function WorkspaceNameForm() {
   const [currentUser] = useAtom(currentUserAtom);
   const [, setWorkspace] = useAtom(workspaceAtom);
   const { isAdmin } = useUserRole();
-
+  const { t } = useTranslation();
   const form = useForm<FormValues>({
     validate: zodResolver(formSchema),
     initialValues: {
@@ -55,8 +55,8 @@ export default function WorkspaceNameForm() {
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <TextInput
         id="name"
-        label="Name"
-        placeholder="e.g ACME"
+        label={t("Name")}
+        placeholder={t("e.g ACME")}
         variant="filled"
         readOnly={!isAdmin}
         {...form.getInputProps("name")}
@@ -69,7 +69,7 @@ export default function WorkspaceNameForm() {
           disabled={isLoading || !form.isDirty()}
           loading={isLoading}
         >
-          Save
+          {t("Save")}
         </Button>
       )}
     </form>

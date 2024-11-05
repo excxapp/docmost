@@ -5,10 +5,10 @@ import { getSpaceUrl } from "@/lib/config.ts";
 import { Link } from "react-router-dom";
 import classes from "./space-grid.module.css";
 import { formatMemberCount } from "@/lib";
-
+import { useTranslation } from "react-i18next";
 export default function SpaceGrid() {
   const { data, isLoading } = useGetSpacesQuery();
-
+  const { t } = useTranslation();
   const cards = data?.items.map((space, index) => (
     <Card
       key={space.id}
@@ -41,7 +41,8 @@ export default function SpaceGrid() {
   return (
     <>
       <Text fz="sm" fw={500} mb={"md"}>
-        Spaces you belong to
+       
+        {t("Spaces you belong to")}
       </Text>
 
       <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }}>{cards}</SimpleGrid>

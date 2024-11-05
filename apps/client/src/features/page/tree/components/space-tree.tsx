@@ -21,6 +21,7 @@ import {
   IconPointFilled,
   IconTrash,
 } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 import { treeDataAtom } from "@/features/page/tree/atoms/tree-data-atom.ts";
 import clsx from "clsx";
 import EmojiPicker from "@/components/ui/emoji-picker.tsx";
@@ -31,6 +32,7 @@ import {
   buildTreeWithChildren,
   updateTreeNodeIcon,
 } from "@/features/page/tree/utils/utils.ts";
+import i18n from "@/lang/i18n.ts"
 import { SpaceTreeNode } from "@/features/page/tree/types.ts";
 import {
   getPageBreadcrumbs,
@@ -67,6 +69,7 @@ export default function SpaceTree({ spaceId, readOnly }: SpaceTreeProps) {
   } = useGetRootSidebarPagesQuery({
     spaceId,
   });
+  const { t } = useTranslation();
   const [, setTreeApi] = useAtom<TreeApi<SpaceTreeNode>>(treeApiAtom);
   const treeApiRef = useRef<TreeApi<SpaceTreeNode>>();
   const [openTreeNodes, setOpenTreeNodes] = useAtom<OpenMap>(openTreeNodesAtom);
@@ -197,7 +200,7 @@ export default function SpaceTree({ spaceId, readOnly }: SpaceTreeProps) {
           disableEdit={readOnly}
           {...controllers}
           width={width}
-          height={height}
+          height={rootElement.current.clientHeight}
           ref={treeApiRef}
           openByDefault={false}
           disableMultiSelection={true}
@@ -338,7 +341,7 @@ function Node({ node, style, dragHandle, tree }: NodeRendererProps<any>) {
           />
         </div>
 
-        <span className={classes.text}>{node.data.name || "untitled"}</span>
+        <span className={classes.text}>{node.data.name || i18n.t("untitled")}</span>
 
         <div className={classes.actions}>
           <NodeMenu node={node} treeApi={tree} />
@@ -400,12 +403,12 @@ function NodeMenu({ node, treeApi }: NodeMenuProps) {
   const clipboard = useClipboard({ timeout: 500 });
   const { spaceSlug } = useParams();
   const { openDeleteModal } = useDeletePageModal();
-
+  const { t } = useTranslation();
   const handleCopyLink = () => {
     const pageUrl =
       getAppUrl() + buildPageUrl(spaceSlug, node.data.slugId, node.data.name);
     clipboard.copy(pageUrl);
-    notifications.show({ message: "Link copied" });
+    notifications.show({ message: i18n.t("Link copied") });
   };
 
   return (
@@ -435,7 +438,7 @@ function NodeMenu({ node, treeApi }: NodeMenuProps) {
             handleCopyLink();
           }}
         >
-          Copy link
+          {t("Copy")}{t("Link")}
         </Menu.Item>
 
         {!(treeApi.props.disableEdit as boolean) && (
@@ -453,7 +456,7 @@ function NodeMenu({ node, treeApi }: NodeMenuProps) {
                 openDeleteModal({ onConfirm: () => treeApi?.delete(node) });
               }}
             >
-              Delete
+              {t("Delete")}
             </Menu.Item>
           </>
         )}

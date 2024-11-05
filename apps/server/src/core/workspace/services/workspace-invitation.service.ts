@@ -312,7 +312,8 @@ export class WorkspaceInvitationService {
 
     await this.mailService.sendToQueue({
       to: inviteeEmail,
-      subject: `${invitedByName} invited you to Docmost`,
+      subject: `${invitedByName} 邀请你使用知识库`,
+      // subject: `${invitedByName} invited you to Docmost`,
       template: emailTemplate,
     });
   }

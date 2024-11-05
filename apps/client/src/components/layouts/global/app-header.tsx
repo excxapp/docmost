@@ -1,20 +1,24 @@
-import {Group, Text, Tooltip} from "@mantine/core";
+import { Group, Text, Tooltip } from "@mantine/core";
 import classes from "./app-header.module.css";
 import React from "react";
 import TopMenu from "@/components/layouts/global/top-menu.tsx";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import APP_ROUTE from "@/lib/app-route.ts";
-import {useAtom} from "jotai/index";
+import { useAtom } from "jotai/index";
+import { useTranslation } from "react-i18next";
+
 import {
   desktopSidebarAtom,
   mobileSidebarAtom,
 } from "@/components/layouts/global/hooks/atoms/sidebar-atom.ts";
-import {useToggleSidebar} from "@/components/layouts/global/hooks/hooks/use-toggle-sidebar.ts";
+import { useToggleSidebar } from "@/components/layouts/global/hooks/hooks/use-toggle-sidebar.ts";
 import SidebarToggle from "@/components/ui/sidebar-toggle-button.tsx";
 
-const links = [{link: APP_ROUTE.HOME, label: "Home"}];
 
 export function AppHeader() {
+  const { t } = useTranslation();
+  const links = [{ link: APP_ROUTE.HOME, label: t("Home") }];
+
   const [mobileOpened] = useAtom(mobileSidebarAtom);
   const toggleMobile = useToggleSidebar(mobileSidebarAtom);
 
@@ -35,10 +39,10 @@ export function AppHeader() {
         <Group wrap="nowrap">
           {!isHomeRoute && (
             <>
-              <Tooltip label="Sidebar toggle">
+              <Tooltip label={t("Sidebar toggle")}>
 
                 <SidebarToggle
-                  aria-label="Sidebar toggle"
+                  aria-label={t("Sidebar toggle")}
                   opened={mobileOpened}
                   onClick={toggleMobile}
                   hiddenFrom="sm"
@@ -46,9 +50,9 @@ export function AppHeader() {
                 />
               </Tooltip>
 
-              <Tooltip label="Sidebar toggle">
+              <Tooltip label={t("Sidebar toggle")}>
                 <SidebarToggle
-                  aria-label="Sidebar toggle"
+                  aria-label={t("Sidebar toggle")}
                   opened={desktopOpened}
                   onClick={toggleDesktop}
                   visibleFrom="sm"
@@ -61,11 +65,12 @@ export function AppHeader() {
           <Text
             size="lg"
             fw={600}
-            style={{cursor: "pointer", userSelect: "none"}}
+            style={{ cursor: "pointer", userSelect: "none" }}
             component={Link}
             to="/home"
           >
-            Docmost
+            {t("LogoTitle")}
+            
           </Text>
 
           <Group ml={50} gap={5} className={classes.links} visibleFrom="sm">
@@ -74,7 +79,7 @@ export function AppHeader() {
         </Group>
 
         <Group px={"xl"}>
-          <TopMenu/>
+          <TopMenu />
         </Group>
       </Group>
     </>

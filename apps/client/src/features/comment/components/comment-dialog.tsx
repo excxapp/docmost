@@ -14,13 +14,14 @@ import { useCreateCommentMutation } from "@/features/comment/queries/comment-que
 import { asideStateAtom } from "@/components/layouts/global/hooks/atoms/sidebar-atom";
 import { useEditor } from "@tiptap/react";
 import { CustomAvatar } from "@/components/ui/custom-avatar.tsx";
-
+import { useTranslation } from "react-i18next";
 interface CommentDialogProps {
   editor: ReturnType<typeof useEditor>;
   pageId: string;
 }
 
 function CommentDialog({ editor, pageId }: CommentDialogProps) {
+  const { t } = useTranslation();
   const [comment, setComment] = useState("");
   const [, setShowCommentPopup] = useAtom(showCommentPopupAtom);
   const [, setActiveCommentId] = useAtom(activeCommentIdAtom);
@@ -107,7 +108,7 @@ function CommentDialog({ editor, pageId }: CommentDialogProps) {
 
         <CommentEditor
           onUpdate={handleCommentEditorChange}
-          placeholder="Write a comment"
+          placeholder={t("Write a comment")}
           editable={true}
           autofocus={true}
         />
